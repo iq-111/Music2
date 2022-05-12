@@ -12,13 +12,13 @@ from pyrogram.types import Message
 from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
 from config import HNDLR
-@Client.on_message(filters.command(["تحميل", "تنزيل"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["تحميل", "بحث"], prefixes=f"{HNDLR}"))
 async def song(client, message: Message):
     urlissed = get_text(message)
     if not urlissed:
         await client.send_message(            message.chat.id,            "صيغة الأمر غير صالحة!",        )
         return
-    pablo = await client.send_message(message.chat.id, f"**🔎 جاري تحميل ** `{urlissed}`")
+    pablo = await client.send_message(message.chat.id, f"**🔎 جاري البحث ** `{urlissed}`")
     search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
     mi = search.result()
     mio = mi["search_result"]
@@ -155,7 +155,7 @@ is_downloading = False
 def time_to_seconds(time):
     stringt = str(time)
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
-@Client.on_message(filters.command(["تنزيل_فيديو", "تحميل_فيديو"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["بحث_فيديو", "تحميل_فيديو"], prefixes=f"{HNDLR}"))
 async def vsong(client, message: Message):
     urlissed = get_text(message)
 
