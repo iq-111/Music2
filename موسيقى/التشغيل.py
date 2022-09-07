@@ -67,7 +67,7 @@ async def ytdl(link):
     else:
         return 0, stderr.decode()
 
-@Client.on_message(filters.command(["تشغيل"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["ش"], prefixes=f"{HNDLR}"))
 async def play(client, m: Message):
     replied = m.reply_to_message
     chat_id = m.chat.id
@@ -75,7 +75,7 @@ async def play(client, m: Message):
     if replied:
         if replied.audio or replied.voice:
             await m.delete()
-            huehue = await replied.reply("**🔄 جاري التشغيل والمعالجه **")
+            huehue = await replied.reply("**🔄 جاري التشغيل **")
             dl = await replied.download()
             link = replied.link
             if replied.audio:
@@ -92,9 +92,9 @@ async def play(client, m: Message):
                 await m.reply_photo(
                     photo="https://telegra.ph/file/40c0ab31719a780e37b5c.jpg",
                     caption=f"""
-**🏷️ العنوان : [{songname}]({link})
-💬 ايدي المحادثه : {chat_id}
-🎧 طلب من : {m.from_user.mention}**
+**🏷️ Addres : [{songname}]({link})
+💬 Chat id : {chat_id}
+🎧 طلب من الحلو : {m.from_user.mention}**
 """,                )
             else:
                 await call_py.join_group_call(                    chat_id,                    AudioPiped(                        dl,                    ),                    stream_type=StreamType().pulse_stream,                )
@@ -110,10 +110,10 @@ async def play(client, m: Message):
 
     else:
         if len(m.command) < 2:
-            await m.reply("الرد على ملف صوتي أو إعطاء شيء للبحث")
+            await m.reply("الرد على ملف صوتي او اسم الاغنيه")
         else:
             await m.delete()
-            huehue = await m.reply("🔎 جاري البحث عزيزي ")
+            huehue = await m.reply("انتظر من فضلك ")
             query = m.text.split(None, 1)[1]
             search = ytsearch(query)
             if search == 0:
@@ -164,7 +164,7 @@ async def play(client, m: Message):
                             await huehue.edit(f"`{ep}`")
 
 
-@Client.on_message(filters.command(["تشغيل_فيديو"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["فيد"], prefixes=f"{HNDLR}"))
 async def vplay(client, m: Message):
     replied = m.reply_to_message
     chat_id = m.chat.id
@@ -172,7 +172,7 @@ async def vplay(client, m: Message):
     if replied:
         if replied.video or replied.document:
             await m.delete()
-            huehue = await replied.reply("**🔄 جاري التنزيل والمعالجه **")
+            huehue = await replied.reply("**🔄 جاري التشغيل **")
             dl = await replied.download()
             link = replied.link
             if len(m.command) < 2:
@@ -367,7 +367,7 @@ async def skip(client, m: Message):
             await m.reply(OP)
 
 
-@Client.on_message(filters.command(["انهاء", "ايقاف"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["انهاء", "ك"], prefixes=f"{HNDLR}"))
 @authorized_users_only
 async def stop(client, m: Message):
     await m.delete()
@@ -394,7 +394,7 @@ async def pause(client, m: Message):
             await m.reply(f"**هناك خطأ ** \n`{e}`")
     else:
         await m.reply("** ❌ لايوجد اغنيه مشتغله !**") 
-@Client.on_message(filters.command(["ايقاف_الاستئناف"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(["بلش"], prefixes=f"{HNDLR}"))
 @authorized_users_only
 async def resume(client, m: Message):
     await m.delete()
